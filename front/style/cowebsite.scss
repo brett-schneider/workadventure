@@ -4,12 +4,8 @@
   position: fixed;
   z-index: 200;
   transition: transform 0.5s;
-  background-color: whitesmoke;
+  background-color: rgba(10, 9, 9, 0.8);
   display: none;
-
-  &.loading {
-    background-color: gray;
-  }
 
   main {
     iframe {
@@ -55,7 +51,7 @@
       cursor: url('./images/cursor_pointer.png'), pointer;
     }
 
-    #cowebsite-sub-icons {
+    #cowebsite-other-actions {
       display: flex;
       margin-top: auto;
       visibility: hidden;
@@ -64,95 +60,28 @@
     }
   }
 
-  &-container {
-    position: absolute;
-    display: none;
-    height: 100%;
-    width: 100%;
+  &-loader {
+    width: 20%;
 
-    &-main {
-      padding: 2% 5%;
-      height: 50%;
-    }
-
-    &-sub {
-      position: absolute !important;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      bottom: 23%;
-      height: 20% !important;
-      width: 100%;
+    #smoke {
+      @for $i from 1 through 3 {
+        #trail-#{$i} {
+          @for $y from 1 through 3 {
+            #trail-#{$i}-state-#{$y} {
+              visibility: hidden;
+            }
+          }
+        }
+      }
     }
   }
 
   &-slot-0 {
     z-index: 70 !important;
-    background-color: whitesmoke;
-  }
-
-  @for $i from 1 through 4 {
-    &-slot-#{$i} {
-      transition: transform 0.5s;
-      position: relative;
-      height: 100%;
-      display: none;
-      background-color: #333333;
-
-      @if $i == 1 {
-        width: 100%;
-      } @else {
-        width: 33%;
-        margin: 5px;
-      }
-
-      .overlay {
-        width: 100%;
-        height: 100%;
-        z-index: 50;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-
-        .actions-move {
-          display: none;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          gap: 10%;
-        }
-
-        &:hover {
-          background-color: rgba($color: #333333, $alpha: 0.6);
-
-          .actions-move {
-            display: flex;
-          }
-        }
-      }
-
-      .actions {
-        pointer-events: all !important;
-        margin: 3% 2%;
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-        position: relative;
-        z-index: 50;
-
-        button {
-          width: 32px;
-          height: 32px;
-          margin: 8px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-    }
+    background-color: rgba(10, 9, 9, 0.0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &-buffer {
@@ -167,10 +96,6 @@
     .main {
       pointer-events: all !important;
       z-index: 205 !important;
-    }
-
-    .sub-main {
-      pointer-events: all !important;
     }
 
     .thumbnail {
@@ -191,19 +116,27 @@
     top: 0;
     width: 50%;
     height: 100vh;
-    display: none;
+    display: flex;
+    visibility: collapse;
+    transform: translateX(100%);
 
     &.loading {
-      transform: translateX(90%);
+      visibility: visible;
+      transform: translateX(0%);
     }
-    &.hidden {
-      transform: translateX(100%);
+
+    &.opened {
+      visibility: visible;
+      transform: translateX(0%);
+    }
+
+    &.closing {
+      visibility: visible;
     }
 
     main {
       width: 100%;
     }
-
 
     aside {
       width: 30px;

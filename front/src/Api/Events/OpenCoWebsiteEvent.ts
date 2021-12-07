@@ -12,7 +12,6 @@ export const isOpenCoWebsiteEvent = new tg.IsInterface()
 export const isCoWebsite = new tg.IsInterface()
     .withProperties({
         id: tg.isString,
-        position: tg.isNumber,
     })
     .get();
 

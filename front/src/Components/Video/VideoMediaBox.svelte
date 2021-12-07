@@ -4,9 +4,11 @@
     import microphoneCloseImg from "../images/microphone-close.svg";
     import reportImg from "./images/report.svg";
     import blockSignImg from "./images/blockSign.svg";
-    import { videoFocusStore } from "../../Stores/VideoFocusStore";
     import { showReportScreenStore } from "../../Stores/ShowReportScreenStore";
     import { getColorByString, srcObject } from "./utils";
+    import { highlightedEmbedScreen } from "../../Stores/EmbedScreensStore";
+    import type { EmbedScreen } from "../../Stores/EmbedScreensStore";
+    import type { Streamable } from "../../Stores/StreamableCollectionStore";
 
     export let peer: VideoPeer;
     let streamStore = peer.streamStore;
@@ -16,6 +18,15 @@
 
     function openReport(peer: VideoPeer): void {
         showReportScreenStore.set({ userId: peer.userId, userName: peer.userName });
+    }
+
+    let embedScreen: EmbedScreen;
+
+    if (peer) {
+        embedScreen = {
+            type: "streamable",
+            embed: peer as unknown as Streamable,
+        };
     }
 </script>
 
@@ -37,7 +48,12 @@
         <span>Report/Block</span>
     </button>
     <!-- svelte-ignore a11y-media-has-caption -->
-    <video use:srcObject={$streamStore} autoplay playsinline on:click={() => videoFocusStore.toggleFocus(peer)} />
+    <video
+        use:srcObject={$streamStore}
+        autoplay
+        playsinline
+        on:click={() => highlightedEmbedScreen.toggleHighlight(embedScreen)}
+    />
     <img src={blockSignImg} class="block-logo" alt="Block" />
     {#if $constraintStore && $constraintStore.audio !== false}
         <SoundMeterWidget stream={$streamStore} />

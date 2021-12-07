@@ -67,7 +67,6 @@ import AnimatedTiles from "phaser-animated-tiles";
 import { StartPositionCalculator } from "./StartPositionCalculator";
 import { soundManager } from "./SoundManager";
 import { peerStore, screenSharingPeerStore } from "../../Stores/PeerStore";
-import { videoFocusStore } from "../../Stores/VideoFocusStore";
 import { biggestAvailableAreaStore } from "../../Stores/BiggestAvailableAreaStore";
 import { SharedVariablesManager } from "./SharedVariablesManager";
 import { playersStore } from "../../Stores/PlayersStore";
@@ -1115,7 +1114,6 @@ ${escapedMessage}
 
             return {
                 id: coWebsite.iframe.id,
-                position: coWebsite.position,
             };
         });
 
@@ -1125,7 +1123,6 @@ ${escapedMessage}
             return coWebsites.map((coWebsite: CoWebsite) => {
                 return {
                     id: coWebsite.iframe.id,
-                    position: coWebsite.position,
                 };
             });
         });

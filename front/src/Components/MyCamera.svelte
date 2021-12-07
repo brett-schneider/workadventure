@@ -26,11 +26,41 @@
 </script>
 
 <div>
-    <div class="video-container div-myCamVideo" class:hide={!$obtainedMediaConstraintStore.video || isSilent}>
+    <div
+        class="nes-container is-rounded my-cam-video-container"
+        class:hide={!$obtainedMediaConstraintStore.video || isSilent}
+    >
         {#if $localStreamStore.type === "success" && $localStreamStore.stream}
-            <video class="myCamVideo" use:srcObject={stream} autoplay muted playsinline />
+            <video class="my-cam-video" use:srcObject={stream} autoplay muted playsinline />
             <SoundMeterWidget {stream} />
         {/if}
     </div>
-    <div class="is-silent" class:hide={isSilent}>Silent zone</div>
+    {#if isSilent}
+        <div class="is-silent">Silent zone</div>
+    {/if}
 </div>
+
+<style lang="scss">
+    .my-cam-video-container {
+        position: absolute;
+        right: 15px;
+        bottom: 30px;
+        max-height: 20%;
+        transition: right 350ms;
+        padding: 0;
+        background-color: #00000099;
+        overflow: hidden;
+    }
+
+    .my-cam-video-container.hide {
+        right: -20vw;
+    }
+
+    .my-cam-video {
+        background-color: #00000099;
+        max-height: 20vh;
+        width: 100%;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+</style>

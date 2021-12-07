@@ -36,15 +36,16 @@ body .message-info.warning{
 }
 
 .video-container {
-    position: relative;
+    display: flex;
     transition: all 0.2s ease;
-    background-color: #00000099;
     cursor: url('./images/cursor_pointer.png'), pointer;
+    width: 100%;
 
     video {
+        height: fit-content;
+        max-height: 100%;
+        max-width: 100%;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
         cursor: url('./images/cursor_pointer.png'), pointer;
 
         &.mobile{
@@ -145,35 +146,6 @@ body .message-info.warning{
     video:focus{
         outline: none;
     }
-}
-
-.video-container.div-myCamVideo{
-    border: none;
-    background-color: transparent;
-}
-
-.div-myCamVideo {
-    position: absolute;
-    right: 15px;
-    bottom: 30px;
-    border-radius: 15px 15px 15px 15px;
-    max-height: 20%;
-    transition: right 350ms;
-}
-
-.div-myCamVideo.hide {
-    right: -20vw;
-}
-
-video.myCamVideo{
-    background-color: #00000099;
-    max-height: 20vh;
-    width: 15vw;
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    border-radius: 15px 15px 15px 15px;
-    /*width: 200px;*/
-    /*height: 113px;*/
 }
 
 .sound-progress{
@@ -533,39 +505,6 @@ input[type=range]:focus::-ms-fill-upper {
 .main-section > div:hover {
     margin: 0%;
     flex-basis: 100%;
-}
-
-.sidebar {
-    flex: 0 0 25%;
-    display: flex;
-}
-
-.sidebar > div {
-    margin: 2%;
-    transition: margin-left 0.2s, margin-right 0.2s, margin-bottom 0.2s, margin-top 0.2s, max-height 0.2s, max-width 0.2s;
-    cursor: url('./images/cursor_pointer.png'), pointer;
-    border-radius: 15px 15px 15px 15px;
-    pointer-events: auto;
-
-    video {
-        max-height: 21vh;
-    }
-}
-
-.sidebar > div:hover {
-    margin: 0%;
-}
-
-.sidebar > div video {
-    cursor: url('./images/cursor_pointer.png'), pointer;
-}
-
-/* Let's make sure videos are vertically centered if they need to be cropped */
-.media-container {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-radius: 15px;
 }
 
 .chat-mode {

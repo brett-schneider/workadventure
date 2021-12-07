@@ -28,7 +28,6 @@
     import ErrorDialog from "./UI/ErrorDialog.svelte";
     import Menu from "./Menu/Menu.svelte";
     import EmoteMenu from "./EmoteMenu/EmoteMenu.svelte";
-    import VideoOverlay from "./Video/VideoOverlay.svelte";
     import { gameOverlayVisibilityStore } from "../Stores/GameOverlayStoreVisibility";
     import AdminMessage from "./TypeMessage/BanMessage.svelte";
     import TextMessage from "./TypeMessage/TextMessage.svelte";
@@ -42,6 +41,8 @@
     import AudioManager from "./AudioManager/AudioManager.svelte";
     import { showReportScreenStore, userReportEmpty } from "../Stores/ShowReportScreenStore";
     import ReportMenu from "./ReportMenu/ReportMenu.svelte";
+    import { hasEmbedScreen } from "../Stores/EmbedScreensStore";
+    import EmbedScreensContainer from "./EmbedScreens/EmbedScreensContainer.svelte";
 
     export let game: Game;
 </script>
@@ -119,7 +120,9 @@
     {/if}
     {#if $gameOverlayVisibilityStore}
         <div>
-            <VideoOverlay />
+            {#if hasEmbedScreen}
+                <EmbedScreensContainer />
+            {/if}
             <MyCamera />
             <CameraControls />
         </div>

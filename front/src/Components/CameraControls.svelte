@@ -9,10 +9,10 @@
     import microphoneCloseImg from "./images/microphone-close.svg";
     import layoutPresentationImg from "./images/layout-presentation.svg";
     import layoutChatImg from "./images/layout-chat.svg";
-    import { layoutModeStore } from "../Stores/StreamableCollectionStore";
     import { LayoutMode } from "../WebRtc/LayoutManager";
     import { peerStore } from "../Stores/PeerStore";
     import { onDestroy } from "svelte";
+    import { embedScreenLayout } from "../Stores/EmbedScreensStore";
 
     function screenSharingClick(): void {
         if (isSilent) return;
@@ -42,10 +42,10 @@
     }
 
     function switchLayoutMode() {
-        if ($layoutModeStore === LayoutMode.Presentation) {
-            $layoutModeStore = LayoutMode.VideoChat;
+        if ($embedScreenLayout === LayoutMode.Presentation) {
+            $embedScreenLayout = LayoutMode.VideoChat;
         } else {
-            $layoutModeStore = LayoutMode.Presentation;
+            $embedScreenLayout = LayoutMode.Presentation;
         }
     }
 
@@ -59,7 +59,7 @@
 <div>
     <div class="btn-cam-action">
         <div class="btn-layout" on:click={switchLayoutMode} class:hide={$peerStore.size === 0}>
-            {#if $layoutModeStore === LayoutMode.Presentation}
+            {#if $embedScreenLayout === LayoutMode.Presentation}
                 <img src={layoutPresentationImg} style="padding: 2px" alt="Switch to mosaic mode" />
             {:else}
                 <img src={layoutChatImg} style="padding: 2px" alt="Switch to presentation mode" />
