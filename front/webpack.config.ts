@@ -7,6 +7,11 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import sveltePreprocess from "svelte-preprocess";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import NodePolyfillPlugin from "node-polyfill-webpack-plugin";
+import { languages, fallbackLanguageObject } from "./src/Translator/TranslationCompiler";
+import type { LanguageFound } from "./src/Translator/TranslationCompiler";
+import { languagesObject } from "./src/Translator/TranslationCompiler";
+
+const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 
 const mode = process.env.NODE_ENV ?? "development";
 const buildNpmTypingsForApi = !!process.env.BUILD_TYPINGS;
@@ -18,6 +23,8 @@ if (!buildNpmTypingsForApi) {
     entries.main = "./src/index.ts";
 }
 entries.iframe_api = "./src/iframe_api.ts";
+
+console.log('lang', languagesObject)
 
 module.exports = {
     entry: entries,
@@ -141,6 +148,11 @@ module.exports = {
                     filename: "fonts/[name][ext]",
                 },
             },
+            {
+                test: /\.json$/,
+                exclude: /node_modules/,
+                type: "asset",
+            },
         ],
     },
     resolve: {
@@ -210,6 +222,22 @@ module.exports = {
             NODE_ENV: mode,
             DISABLE_ANONYMOUS: false,
             OPID_LOGIN_SCREEN_PROVIDER: null,
+            FALLBACK_LANGUAGE: null,
+            FALLBACK_LANGUAGE_OBJECT: fallbackLanguageObject,
+            LANGUAGES: languagesObject,
+        }),
+        new MergeJsonWebpackPlugin({
+            output: {
+                groupBy: languages.map((language: LanguageFound) => {
+                    return {
+                        pattern: `./translations/**/*.${language.id}.json`,
+                        fileName: `./resources/translations/${language.id}.json`
+                    };
+                })
+            },
+            globOptions: {
+                nosort: true,
+            },
         }),
     ],
 } as Configuration & WebpackDevServer.Configuration;

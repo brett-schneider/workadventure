@@ -1,3 +1,5 @@
+import type { LanguageFound } from "../Translator/TranslationCompiler";
+
 const DEBUG_MODE: boolean = process.env.DEBUG_MODE == "true";
 const START_ROOM_URL: string =
     process.env.START_ROOM_URL || "/_/global/maps.workadventure.localhost/Floor1/floor1.json";
@@ -25,6 +27,9 @@ export const POSTHOG_API_KEY: string = (process.env.POSTHOG_API_KEY as string) |
 export const POSTHOG_URL = process.env.POSTHOG_URL || undefined;
 export const DISABLE_ANONYMOUS: boolean = process.env.DISABLE_ANONYMOUS === "true";
 export const OPID_LOGIN_SCREEN_PROVIDER = process.env.OPID_LOGIN_SCREEN_PROVIDER;
+const FALLBACK_LANGUAGE: string = process.env.FALLBACK_LANGUAGE || "en-US";
+const FALLBACK_LANGUAGE_OBJECT: Object = process.env.FALLBACK_LANGUAGE_OBJECT || {};
+const LANGUAGES: Object = process.env.LANGUAGES || { "en-US": true };
 
 export const isMobile = (): boolean => window.innerWidth <= 800 || window.innerHeight <= 600;
 
@@ -44,4 +49,7 @@ export {
     TURN_PASSWORD,
     JITSI_URL,
     JITSI_PRIVATE_MODE,
+    FALLBACK_LANGUAGE,
+    FALLBACK_LANGUAGE_OBJECT,
+    LANGUAGES,
 };

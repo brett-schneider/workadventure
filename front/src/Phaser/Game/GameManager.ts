@@ -9,6 +9,8 @@ import { get } from "svelte/store";
 import { requestedCameraState, requestedMicrophoneState } from "../../Stores/MediaStore";
 import { helpCameraSettingsVisibleStore } from "../../Stores/HelpCameraSettingsStore";
 import { menuIconVisiblilityStore } from "../../Stores/MenuStore";
+import { Translator } from "../../Translator/Translator";
+import { LANGUAGES } from "../../Enum/EnvironmentVariable";
 
 /**
  * This class should be responsible for any scene starting/stopping
